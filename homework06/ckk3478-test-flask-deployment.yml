@@ -1,0 +1,30 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-deployment
+  labels:
+    app: ckk3478-test-flask
+    username: ckk3478
+    env: test
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ckk3478-test-flask
+      username: ckk3478
+      env: test
+  template:
+    metadata:
+      labels:
+        app: ckk3478-test-flask
+        username: ckk3478
+        env: test
+    spec:
+      containers:
+        - name: test-flask
+          imagePullPolicy: Always
+          image: jstubbs/hello-flask
+          ports:
+          - name: http
+            containerPort: 5000

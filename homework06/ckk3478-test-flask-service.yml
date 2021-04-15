@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-service
+  labels:
+    app: ckk3478-test-flask
+    username: ckk3478
+    env: test
+spec:
+  type: ClusterIP
+  selector:
+    app: ckk3478-test-flask
+  ports:
+  - name: test-flask
+    port: 5000
+    targetPort: 5000
