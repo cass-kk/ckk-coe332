@@ -1,0 +1,38 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker-1deployment
+  labels:
+    app: ckk3478-1test-flask
+    username: ckk3478
+    env: test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ckk3478-1test-flask
+      username: ckk3478
+      env: test
+  template:
+    metadata:
+      labels:
+        app: ckk3478-1test-flask
+        username: ckk3478
+        env: test
+    spec:
+      containers:
+        - name: test-1flask-worker
+          imagePullPolicy: Always
+          image: casskk/homework07:1.0
+          command: ['python','worker.py']
+          env:
+          - name: WORKER_GREETING
+            value: "Hello from worker"
+          - name: WORKER_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
+          ports:
+          - name: http
+            containerPort: 6379

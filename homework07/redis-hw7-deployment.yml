@@ -1,0 +1,37 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: r-pvc-deployment
+  labels:
+    app: ckk3478-redis-hw7
+    username: ckk3478
+    env: test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ckk3478-redis-hw7
+      username: ckk3478
+      env: test
+  template:
+    metadata:
+      labels:
+        app: ckk3478-redis-hw7
+        username: ckk3478
+        env: test
+    spec:
+      containers:
+        - name: test-redis1
+          imagePullPolicy: Always
+          image: redis:5.0.0
+          volumeMounts:
+          - name: r-ckk3478-data
+            mountPath: "/data"
+          ports:
+          - name: http
+            containerPort: 6379
+      volumes:
+      - name: r-ckk3478-data
+        persistentVolumeClaim:
+          claimName: r-ckk3478-data
